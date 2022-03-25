@@ -39,11 +39,23 @@ int ordrealpha(const char* s1, const char* s2) {
     return 1;
 }
 
+char* multiplier(const char* s, unsigned int a) {
+    char* res = malloc(strlen(s) * a);
+    if (res == NULL) return NULL;
+    res[0] = '\0';
+    for(int i=0; i<a; i++) {
+        strncat(res, s, strlen(s));
+    }
+    return res;
+}
+
+
 int main() {
     printf("[LOG]: duplicate():  %s\n", dupliquer("Hello World"));
     printf("[LOG]: duplicate2(): %s\n", dupliquer2("Hello World"));
     printf("[LOG]: duplicate3(): %s\n", dupliquer3("Hello World"));
     printf("[LOG]: ordrealpha(): %d\n", ordrealpha("Pa", "Paris"));
+    printf("[LOG]: multiplier(): %s\n", multiplier("Paris", 3));
   
     return EXIT_SUCCESS;
 }
