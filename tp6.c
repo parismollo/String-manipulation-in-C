@@ -63,7 +63,7 @@ int nboc(const char *s, const char *sub) {
     int nb_occurences = 0;
     int len_s = strlen(s), len_sub = strlen(sub);
     int idx_s = 0;
-    
+
     if(len_s > len_sub) return nb_occurences;
     for(int i = 0; i < len_sub; i++) {
         if(sub[i] == s[idx_s]) {
@@ -79,6 +79,22 @@ int nboc(const char *s, const char *sub) {
     return nb_occurences;
 }
 
+mutation diff(const char *s, const char *t) {
+    mutation m = {.len = 0, .indice = -1};
+    int s_len = strlen(s), t_len = strlen(t);
+    if (s_len != t_len) return m;
+
+    for(int i = 0; i < s_len; i++) {
+        if(s[i] == t[i]) continue;
+        m.indice = i;
+        while (s[i] != t[i]) {
+            m.len++;
+            i++;
+        }
+        break;
+    }
+    return m;
+}
 void tests_1() {
     printf("[LOG]: duplicate():  %s\n", dupliquer("Hello World"));
     printf("[LOG]: duplicate2(): %s\n", dupliquer2("Hello World"));
@@ -105,7 +121,8 @@ int main(int argc, char* argv[]) {
         printf("%s", multiplier(argv[1], s));
     }
 
-    printf("nbocc: %d", nboc("aa", "dsdaaaaddsaa"));
-
+    printf("nbocc: %d\n", nboc("aa", "dsdaaaaddsaa"));
+    mutation m = diff("abbbb", "abcdd");
+    printf("mutation m.len: %d, m.indice: %d\n", m.len, m.indice);
     return EXIT_SUCCESS;
 }
