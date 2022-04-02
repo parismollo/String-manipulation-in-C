@@ -24,7 +24,7 @@ char* dupliquer2(const char* s) {
 char* dupliquer3(const char* s) {
     char* dest = malloc(strlen(s)+1);
     if (dest == NULL) return NULL;
-    strncpy(dest, s, strlen(s));
+    strncpy(dest, s, strlen(s)+1);
     return dest;
 }
 
@@ -40,7 +40,7 @@ int ordrealpha(const char* s1, const char* s2) {
 }
 
 char* multiplier(const char* s, unsigned int a) {
-    char* res = malloc(strlen(s) * a);
+    char* res = malloc((strlen(s) * a + 1) * sizeof(char));
     if (res == NULL) return NULL;
     res[0] = '\0';
     for(int i=0; i<a; i++) {
@@ -50,7 +50,7 @@ char* multiplier(const char* s, unsigned int a) {
 }
 
 
-int main() {
+int main(int argc, char* argv[]) {
     printf("[LOG]: duplicate():  %s\n", dupliquer("Hello World"));
     printf("[LOG]: duplicate2(): %s\n", dupliquer2("Hello World"));
     printf("[LOG]: duplicate3(): %s\n", dupliquer3("Hello World"));
