@@ -49,13 +49,30 @@ char* multiplier(const char* s, unsigned int a) {
     return res;
 }
 
-
-int main(int argc, char* argv[]) {
+void tests_1() {
     printf("[LOG]: duplicate():  %s\n", dupliquer("Hello World"));
     printf("[LOG]: duplicate2(): %s\n", dupliquer2("Hello World"));
     printf("[LOG]: duplicate3(): %s\n", dupliquer3("Hello World"));
     printf("[LOG]: ordrealpha(): %d\n", ordrealpha("Pa", "Paris"));
     printf("[LOG]: multiplier(): %s\n", multiplier("Paris", 3));
-  
+}
+
+
+int main(int argc, char* argv[]) {
+    tests_1();
+
+    if(argc > 3) {
+        for(int i = 0; i < argc-1; i++) {
+            if(i == 0) continue;
+            printf("[%d]: %s ;", i, argv[i]);
+            printf(" [%d]: %s -> ", i+1, argv[i+1]);
+            printf("%d\n", ordrealpha(argv[i], argv[i+1]));
+        }   
+    }
+
+    if(argc == 3) {
+        int s = atoi(argv[2]);
+        printf("%s", multiplier(argv[1], s));
+    }
     return EXIT_SUCCESS;
 }
