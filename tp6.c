@@ -149,6 +149,15 @@ char *extract_word(const char *word, int *pl) {
     *pl = len;
     return res;
 }
+
+char *next_word(const char *w) {
+    int idx = 0;
+    while(isspace(w[idx]) || w[idx] == '\0') {
+        idx++;
+    }
+    int *random = malloc(sizeof(int));
+    return extract_word(w+idx, random);
+}
 void tests_1() {
     printf("[LOG]: duplicate():  %s\n", dupliquer("Hello World"));
     printf("[LOG]: duplicate2(): %s\n", dupliquer2("Hello World"));
@@ -191,6 +200,8 @@ int main(int argc, char* argv[]) {
     printf("extracted word: %s\n", res);
     printf("old word: %s\n", s);
     printf("new word len: %d\n", *pl);
+
+    printf("next word: %s", next_word("      Hello    dsds"));
 
     return EXIT_SUCCESS;
 }
