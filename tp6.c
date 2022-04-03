@@ -139,6 +139,16 @@ int word_len(const char *w) {
     }
     return idx;
 }
+
+char *extract_word(const char *word, int *pl) {
+    int len = word_len(word);
+    assert(len > 0);
+    char *res = malloc(sizeof(char)*len+1);
+    assert(res != NULL);
+    memmove(res, word, len+1);
+    *pl = len;
+    return res;
+}
 void tests_1() {
     printf("[LOG]: duplicate():  %s\n", dupliquer("Hello World"));
     printf("[LOG]: duplicate2(): %s\n", dupliquer2("Hello World"));
@@ -173,7 +183,14 @@ int main(int argc, char* argv[]) {
     printf("nbr_words: %d\n", nbr_words("    hello my dds name is paris  "));
     
     char *s = "Paris Mollo";
-    // printf("%c",s[16]);
-    printf("word_len: %d", word_len(s+6));
+    printf("word_len: %d\n", word_len(s+6));
+
+    int *pl = malloc(sizeof(int));
+
+    char *res = extract_word(s+6, pl);
+    printf("extracted word: %s\n", res);
+    printf("old word: %s\n", s);
+    printf("new word len: %d\n", *pl);
+
     return EXIT_SUCCESS;
 }
