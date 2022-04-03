@@ -126,7 +126,19 @@ int nbr_words(const char *s) {
     }
     return word_counter;
 }
+int word_len(const char *w) {
+    assert(isalpha(w[0]));
+    assert(!isspace(w[0]));
 
+    int idx = 0;
+    while(!isspace(w[idx])) {
+        if(w[idx] == '\0') {
+            break;
+        }
+        idx++;
+    }
+    return idx;
+}
 void tests_1() {
     printf("[LOG]: duplicate():  %s\n", dupliquer("Hello World"));
     printf("[LOG]: duplicate2(): %s\n", dupliquer2("Hello World"));
@@ -158,7 +170,10 @@ int main(int argc, char* argv[]) {
     printf("mutation m.len: %d, m.indice: %d\n", m.len, m.indice);
     mutation longest_mutation = longest("atcgatatt", "aaagccata");
     printf("mutation m.len: %d, m.indice: %d\n", longest_mutation.len, longest_mutation.indice);
-    printf("nbr_words: %d", nbr_words("    hello my dds name is paris  "));
+    printf("nbr_words: %d\n", nbr_words("    hello my dds name is paris  "));
     
+    char *s = "Paris Mollo";
+    // printf("%c",s[16]);
+    printf("word_len: %d", word_len(s+6));
     return EXIT_SUCCESS;
 }
