@@ -95,6 +95,22 @@ mutation diff(const char *s, const char *t) {
     }
     return m;
 }
+
+mutation longest(const char *s, const char *t) {
+    int s1 = strlen(s);
+    assert(s1 == strlen(t));
+
+    mutation max = diff(s, t);
+    mutation tmp;
+
+    for(int i = 0; i<s1; i++) {
+        tmp = diff(s[i], t[i]);
+        if(tmp.len > max.len) {
+            max = tmp;
+        }
+    }
+    return max;
+}
 void tests_1() {
     printf("[LOG]: duplicate():  %s\n", dupliquer("Hello World"));
     printf("[LOG]: duplicate2(): %s\n", dupliquer2("Hello World"));
