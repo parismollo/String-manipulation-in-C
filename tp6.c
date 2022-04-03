@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <assert.h>
 
 typedef struct {
     size_t indice; 
@@ -99,18 +100,33 @@ mutation diff(const char *s, const char *t) {
 mutation longest(const char *s, const char *t) {
     int s1 = strlen(s);
     assert(s1 == strlen(t));
-
     mutation max = diff(s, t);
     mutation tmp;
-
-    for(int i = 0; i<s1; i++) {
-        tmp = diff(s[i], t[i]);
-        if(tmp.len > max.len) {
+    for(int i=1;i<s1;i++) {
+        tmp = diff(s+i, t+i);
+        if(tmp.len > max.len)
             max = tmp;
-        }
     }
     return max;
 }
+
+int nbr_words(const char *s) {
+    int found_space = 1;
+    int word_counter = 0;
+
+    for(int i = 0; i < strlen(s); i++) {
+        if(isspace(s[i])) {
+            found_space = 1;
+        }else {
+            if(found_space != 0) {
+                word_counter++;
+                found_space = 0;
+            }
+        }
+    }
+    return word_counter;
+}
+
 void tests_1() {
     printf("[LOG]: duplicate():  %s\n", dupliquer("Hello World"));
     printf("[LOG]: duplicate2(): %s\n", dupliquer2("Hello World"));
@@ -140,5 +156,9 @@ int main(int argc, char* argv[]) {
     printf("nbocc: %d\n", nboc("aa", "dsdaaaaddsaa"));
     mutation m = diff("abbbb", "abcdd");
     printf("mutation m.len: %d, m.indice: %d\n", m.len, m.indice);
+    mutation longest_mutation = longest("atcgatatt", "aaagccata");
+    printf("mutation m.len: %d, m.indice: %d\n", longest_mutation.len, longest_mutation.indice);
+    printf("nbr_words: %d", nbr_words("    hello my dds name is paris  "));
+    
     return EXIT_SUCCESS;
 }
